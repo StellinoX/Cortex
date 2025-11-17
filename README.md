@@ -1,4 +1,4 @@
-# � Cortex - AI Chat Assistant
+# 🧠 Cortex - AI Chat Assistant
 
 An advanced iOS app that combines artificial intelligence, web search, image analysis, and visual content generation through Image Playground.
 
