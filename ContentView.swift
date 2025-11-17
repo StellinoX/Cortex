@@ -6,25 +6,6 @@
 //
 
 import SwiftUI
-                Spacer()
-                
-                Button("Close") {
-                    isPresented = false
-                }
-                .buttonStyle(.borderedProminent)
-                .padding()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Close") {
-                        isPresented = false
-                    }
-                }
-            }
-        }
-    }
-}dels
 import PhotosUI
 import ImagePlayground
 
@@ -133,7 +114,7 @@ private struct UnavailableImagePlaygroundView: View {
                 
                 Spacer()
                 
-                Button("Chiudi") {
+                Button("Close") {
                     isPresented = false
                 }
                 .buttonStyle(.borderedProminent)
@@ -142,7 +123,7 @@ private struct UnavailableImagePlaygroundView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Chiudi") {
+                    Button("Close") {
                         isPresented = false
                     }
                 }
