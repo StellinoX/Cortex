@@ -40,55 +40,55 @@ final class ChatViewModel: ObservableObject {
 
     init() {
         systemInstructions = """
-        Sei un assistente conversazionale esperto, disponibile e ben informato. Puoi aiutare con qualsiasi domanda: ricette, consigli, spiegazioni, creatività, programmazione, e molto altro.
+        You are an expert conversational assistant, helpful and well-informed. You can help with any question: recipes, advice, explanations, creativity, programming, and much more.
         
-        🌍 LINGUA:
-        Rispondi SEMPRE nella stessa lingua in cui l'utente scrive. Se scrive in italiano, rispondi in italiano. Se scrive in inglese, rispondi in inglese. Se scrive in qualsiasi altra lingua, rispondi in quella lingua.
+        🌍 LANGUAGE:
+        ALWAYS respond in the same language the user writes in. If they write in Italian, respond in Italian. If they write in English, respond in English. If they write in any other language, respond in that language.
         
-        📚 TUE CAPACITÀ:
-        - Puoi rispondere a QUALSIASI domanda generale: ricette, consigli, tutorial, spiegazioni, storie, codice, ecc.
-        - Hai accesso alla tua vasta conoscenza di base (aggiornata fino a ottobre 2023)
-        - Puoi essere creativo, dare consigli, spiegare concetti complessi
-        - NON devi limitarti solo a notizie o informazioni recenti!
+        📚 YOUR CAPABILITIES:
+        - You can answer ANY general question: recipes, advice, tutorials, explanations, stories, code, etc.
+        - You have access to your vast base knowledge (updated until October 2023)
+        - You can be creative, give advice, explain complex concepts
+        - You are NOT limited to only news or recent information!
         
-        🌐 RICERCA WEB INTELLIGENTE:
-        L'app decide automaticamente QUANTE fonti servono in base al tipo di richiesta:
+        🌐 INTELLIGENT WEB SEARCH:
+        The app automatically decides HOW MANY sources are needed based on the type of request:
         
-        1 FONTE - Per richieste che richiedono UN'UNICA risposta completa:
-           • Ricette, tutorial, guide how-to
-           • Usa TUTTA la fonte per dare istruzioni dettagliate e complete
-           • Esempio: "Come fare la torta di mele" → 1 ricetta completa con ingredienti e procedimento
+        1 SOURCE - For requests requiring A SINGLE complete answer:
+           • Recipes, tutorials, how-to guides
+           • Use the ENTIRE source to give detailed and complete instructions
+           • Example: "How to make apple pie" → 1 complete recipe with ingredients and procedure
         
-        2 FONTI - Per richieste che richiedono CONFRONTO o APPROFONDIMENTO:
-           • Recensioni, confronti, opinioni diverse
-           • Sintetizza le informazioni da entrambe le fonti
-           • Esempio: "iPhone vs Samsung" → confronto bilanciato da 2 prospettive
+        2 SOURCES - For requests requiring COMPARISON or DEEP DIVE:
+           • Reviews, comparisons, different opinions
+           • Synthesize information from both sources
+           • Example: "iPhone vs Samsung" → balanced comparison from 2 perspectives
         
-        3 FONTI - Per richieste su NOTIZIE o ATTUALITÀ:
-           • Notizie del giorno, eventi recenti, aggiornamenti
-           • Crea un riassunto unificato da tutte le fonti
-           • Esempio: "Notizie di oggi" → riassunto generale da 3 testate diverse
+        3 SOURCES - For requests about NEWS or CURRENT EVENTS:
+           • Today's news, recent events, updates
+           • Create a unified summary from all sources
+           • Example: "Today's news" → general summary from 3 different outlets
         
-        COME RICONOSCERE I DATI WEB:
-        - Cerca sezioni come "🌐 INFORMAZIONI TROVATE SUL WEB" o "=== FONTE" nel prompt
-        - Questi contengono articoli REALI e AGGIORNATI da internet
+        HOW TO RECOGNIZE WEB DATA:
+        - Look for sections like "🌐 WEB INFORMATION FOUND" or "=== SOURCE" in the prompt
+        - These contain REAL and UPDATED articles from the internet
         
-        COME USARE I DATI WEB (ADATTA IN BASE AL NUMERO DI FONTI):
-        - Con 1 fonte: Presenta la ricetta/guida in modo completo e strutturato
-        - Con 2 fonti: Confronta e integra le informazioni per dare una visione completa
-        - Con 3 fonti: Sintetizza i punti chiave da tutte le fonti in un riassunto fluido
-        - NON includere link o URL
+        HOW TO USE WEB DATA (ADAPT BASED ON NUMBER OF SOURCES):
+        - With 1 source: Present the recipe/guide in a complete and structured way
+        - With 2 sources: Compare and integrate information to give a complete view
+        - With 3 sources: Synthesize key points from all sources in a fluid summary
+        - DO NOT include links or URLs
         
-        QUANDO NON CI SONO DATI WEB:
-        - Rispondi NORMALMENTE usando la tua conoscenza di base
-        - Per domande generali (ricette, consigli, spiegazioni): rispondi sempre!
-        - Per notizie/eventi recenti senza dati web: spiega che la tua conoscenza è limitata a ottobre 2023
+        WHEN THERE'S NO WEB DATA:
+        - Respond NORMALLY using your base knowledge
+        - For general questions (recipes, advice, explanations): always respond!
+        - For news/recent events without web data: explain that your knowledge is limited to October 2023
         
-        STILE:
-        - Sii utile, amichevole e disponibile
-        - Sviluppa risposte complete e dettagliate
-        - Usa un tono naturale e conversazionale
-        - Non rifiutare mai richieste legittime
+        STYLE:
+        - Be helpful, friendly and available
+        - Develop complete and detailed responses
+        - Use a natural and conversational tone
+        - Never refuse legitimate requests
         """
         
         // Setup notification observer for Image Playground
@@ -121,7 +121,7 @@ final class ChatViewModel: ObservableObject {
             availabilityMessage = availabilityText(for: availability)
             session = nil
         @unknown default:
-            availabilityMessage = "Il modello non è disponibile per un motivo sconosciuto."
+            availabilityMessage = "The model is not available for an unknown reason."
             session = nil
         }
     }
@@ -191,14 +191,14 @@ final class ChatViewModel: ObservableObject {
             messages.append(.user(userText))
             input = ""
             
-            // Mostra messaggio e apri Image Playground
-            messages.append(.assistant("🎨 Sto aprendo Image Playground per creare l'immagine...\n\nPotrai personalizzare lo stile e i dettagli direttamente nell'interfaccia di Image Playground!"))
+            // Show message and open Image Playground
+            messages.append(.assistant("🎨 Opening Image Playground to create the image...\n\nYou'll be able to customize the style and details directly in the Image Playground interface!"))
             imagePlaygroundPrompt = imagePrompt
             showImagePlayground = true
-            print("🎨 DEBUG: showImagePlayground = true, dovrebbe aprire il sheet")
+            print("🎨 DEBUG: showImagePlayground = true, should open sheet")
             return
         }
-        print("❌ DEBUG: Non è una richiesta di immagine, procedo normalmente")
+        print("❌ DEBUG: Not an image request, proceeding normally")
         
         guard let session = session, !session.isResponding else { return }
         let attachedData = pendingImageData
@@ -220,7 +220,7 @@ final class ChatViewModel: ObservableObject {
                 var webContext: String? = nil
                 if let _ = attachedData {
                     if userText.isEmpty {
-                        prompt = "C'è una foto allegata. Non hai accesso diretto all'immagine; se non trovi un'analisi locale, chiedi una breve descrizione (1-2 frasi) e proponi 2-3 modi in cui puoi aiutare, senza ripetere che non puoi vedere l'immagine."
+                        prompt = "There's an attached photo. You don't have direct access to the image; if you don't find a local analysis, ask for a brief description (1-2 sentences) and suggest 2-3 ways you can help, without repeating that you can't see the image."
                     } else {
                         prompt = userText
                         if let url = firstURL(in: userText) {
@@ -228,111 +228,111 @@ final class ChatViewModel: ObservableObject {
                                 webContext = "Contenuto web da \(url.absoluteString):\n\n" + preview
                             }
                         } else if allowWebAccess {
-                            // Quando la ricerca web è attiva, cerca sempre sul web
-                            messages.append(.assistant("🔍 Sto cercando informazioni sul web..."))
+                            // When web search is active, always search on web
+                            messages.append(.assistant("🔍 Searching for information on the web..."))
                             if let searchContext = await performWebSearchContext(query: userText) {
-                                // Rimuovi il messaggio di ricerca in corso
-                                if messages.last?.text == "🔍 Sto cercando informazioni sul web..." {
+                                // Remove the searching message
+                                if messages.last?.text == "🔍 Searching for information on the web..." {
                                     messages.removeLast()
                                 }
                                 
-                                // Verifica se è un messaggio di errore
+                                // Check if it's an error message
                                 if searchContext.starts(with: "❌") || searchContext.starts(with: "⚠️") {
-                                    // Mostra l'errore all'utente
+                                    // Show error to user
                                     messages.append(.assistant(searchContext))
                                 } else {
-                                    // Successo
+                                    // Success
                                     webContext = searchContext
-                                    let newsCount = searchContext.components(separatedBy: "=== NOTIZIA").count - 1
+                                    let newsCount = searchContext.components(separatedBy: "=== NEWS").count - 1
                                     if newsCount > 0 {
-                                        messages.append(.assistant("✅ Ho trovato \(newsCount) \(newsCount == 1 ? "fonte" : "fonti") sul web."))
+                                        messages.append(.assistant("✅ Found \(newsCount) \(newsCount == 1 ? "source" : "sources") on the web."))
                                     }
                                 }
                             } else {
-                                // Rimuovi il messaggio e informa l'utente
-                                if messages.last?.text == "🔍 Sto cercando informazioni sul web..." {
+                                // Remove message and inform user
+                                if messages.last?.text == "🔍 Searching for information on the web..." {
                                     messages.removeLast()
                                 }
-                                messages.append(.assistant("⚠️ La ricerca web non ha trovato risultati."))
+                                messages.append(.assistant("⚠️ Web search found no results."))
                             }
                         }
                     }
-                    // Analisi locale (OCR + dettagli)
+                    // Local analysis (OCR + details)
                     let analysisTool = ImageAnalysisTool(imageProvider: { attachedData })
                     if let analysis = try? await analysisTool.call(arguments: .init(mode: nil)), !analysis.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         analysisText = analysis
                         if userText.isEmpty {
-                            prompt = "Di seguito trovi un'analisi locale dell'immagine. Usa queste informazioni per rispondere in modo utile, senza ripetere che non puoi vedere l'immagine.\n\n" + analysis
+                            prompt = "Below you'll find a local analysis of the image. Use this information to respond helpfully, without repeating that you can't see the image.\n\n" + analysis
                         } else {
-                            prompt = "Di seguito trovi un'analisi locale dell'immagine. Usa queste informazioni per rispondere in modo utile, senza ripetere che non puoi vedere l'immagine.\n\n" + analysis + "\n\nUtente: " + userText
+                            prompt = "Below you'll find a local analysis of the image. Use this information to respond helpfully, without repeating that you can't see the image.\n\n" + analysis + "\n\nUser: " + userText
                         }
                     }
                 } else {
-                    // Contenuto testuale senza immagine
+                    // Text content without image
                     prompt = userText
                     if let url = firstURL(in: userText) {
                         if let preview = await fetchURLPreview(url) {
                             webContext = "Contenuto web da \(url.absoluteString):\n\n" + preview
                         }
                     } else if allowWebAccess {
-                        // Quando la ricerca web è attiva, cerca sempre sul web
-                        messages.append(.assistant("🔍 Sto cercando informazioni sul web..."))
+                        // When web search is active, always search on web
+                        messages.append(.assistant("🔍 Searching for information on the web..."))
                         if let searchContext = await performWebSearchContext(query: userText) {
-                            // Rimuovi il messaggio di ricerca in corso
-                            if messages.last?.text == "🔍 Sto cercando informazioni sul web..." {
+                            // Remove the searching message
+                            if messages.last?.text == "🔍 Searching for information on the web..." {
                                 messages.removeLast()
                             }
                             
-                            // Verifica se è un messaggio di errore
+                            // Check if it's an error message
                             if searchContext.starts(with: "❌") || searchContext.starts(with: "⚠️") {
-                                // Mostra l'errore all'utente
+                                // Show error to user
                                 messages.append(.assistant(searchContext))
                             } else {
-                                // Conta quante notizie sono state trovate
+                                // Count how many news items were found
                                 webContext = searchContext
-                                let newsCount = searchContext.components(separatedBy: "=== NOTIZIA").count - 1
+                                let newsCount = searchContext.components(separatedBy: "=== NEWS").count - 1
                                 if newsCount > 0 {
-                                    messages.append(.assistant("✅ Ho trovato \(newsCount) \(newsCount == 1 ? "fonte" : "fonti") sul web. Analizzo i contenuti..."))
+                                    messages.append(.assistant("✅ Found \(newsCount) \(newsCount == 1 ? "source" : "sources") on the web. Analyzing content..."))
                                 }
                             }
                         } else {
-                            // Rimuovi il messaggio e informa l'utente
-                            if messages.last?.text == "🔍 Sto cercando informazioni sul web..." {
+                            // Remove message and inform user
+                            if messages.last?.text == "🔍 Searching for information on the web..." {
                                 messages.removeLast()
                             }
-                            messages.append(.assistant("⚠️ La ricerca web non ha trovato risultati utilizzabili. Provo a rispondere con la mia conoscenza di base."))
+                            messages.append(.assistant("⚠️ Web search found no usable results. I'll try to respond with my base knowledge."))
                         }
                     }
                 }
 
-                // Mostra a schermo l'analisi locale (se disponibile) per dare visibilità all'utente
+                // Display local analysis (if available) to give visibility to user
                 if let analysisText {
                     messages.append(.assistant(analysisText))
                 }
                 if let webContext {
-                    // Aggiungi il contesto web al prompt
+                    // Add web context to prompt
                     prompt = "\(webContext)\n\n━━━\nUSER: \(prompt)"
                     
-                    // Log della lunghezza per debug
-                    print("📏 DEBUG: Lunghezza prompt totale: \(prompt.count) caratteri")
-                    print("📏 DEBUG: Lunghezza webContext: \(webContext.count) caratteri")
+                    // Log length for debug
+                    print("📏 DEBUG: Total prompt length: \(prompt.count) characters")
+                    print("📏 DEBUG: webContext length: \(webContext.count) characters")
                 }
-                // Ridotto context quando c'è web search per evitare token limit
+                // Reduced context when there's web search to avoid token limit
                 let contextLimit = webContext != nil ? 2 : 6
                 let context = chatContextString(limit: contextLimit)
                 let finalPrompt = context + "\n\n" + prompt
                 
-                print("📏 DEBUG: Lunghezza finalPrompt: \(finalPrompt.count) caratteri")
-                print("🤖 DEBUG: Invio richiesta al modello AI...")
+                print("📏 DEBUG: finalPrompt length: \(finalPrompt.count) characters")
+                print("🤖 DEBUG: Sending request to AI model...")
                 
                 let response = try await session.respond(to: finalPrompt, options: GenerationOptions(temperature: 0.7))
                 
-                print("✅ DEBUG: Risposta ricevuta dal modello")
+                print("✅ DEBUG: Response received from model")
                 messages.append(.assistant(response.content))
             } catch {
-                print("❌ DEBUG: Errore dal modello AI: \(error)")
-                print("❌ DEBUG: Tipo errore: \(type(of: error))")
-                messages.append(.assistant("Si è verificato un errore durante la risposta. Riprova più tardi.\n\nDettagli tecnici: \(error.localizedDescription)"))
+                print("❌ DEBUG: Error from AI model: \(error)")
+                print("❌ DEBUG: Error type: \(type(of: error))")
+                messages.append(.assistant("An error occurred while responding. Please try again later.\n\nTechnical details: \(error.localizedDescription)"))
             }
             isResponding = false
         }
@@ -350,72 +350,72 @@ final class ChatViewModel: ObservableObject {
                 var prompt: String
                 var analysisText: String? = nil
                 var webContext: String? = nil
-                // Analisi locale
+                // Local analysis
                 let analysisTool = ImageAnalysisTool(imageProvider: { data })
                 if let analysis = try? await analysisTool.call(arguments: .init(mode: nil)), !analysis.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     analysisText = analysis
                     if caption.isEmpty {
-                        prompt = "Di seguito trovi un'analisi locale dell'immagine. Usa queste informazioni per rispondere in modo utile.\n\n" + analysis
+                        prompt = "Below you'll find a local analysis of the image. Use this information to respond helpfully.\n\n" + analysis
                     } else {
-                        prompt = "Di seguito trovi un'analisi locale dell'immagine. Usa queste informazioni per rispondere in modo utile.\n\n" + analysis + "\n\nUtente: " + caption
+                        prompt = "Below you'll find a local analysis of the image. Use this information to respond helpfully.\n\n" + analysis + "\n\nUser: " + caption
                     }
                 } else {
                     if caption.isEmpty {
-                        prompt = "C'è una foto allegata. Non hai accesso diretto all'immagine; chiedi una breve descrizione (1-2 frasi) e proponi 2-3 modi in cui puoi aiutare, senza ripetere che non puoi vedere l'immagine."
+                        prompt = "There's an attached photo. You don't have direct access to the image; ask for a brief description (1-2 sentences) and suggest 2-3 ways you can help, without repeating that you can't see the image."
                     } else {
-                        prompt = "C'è una foto allegata. Usa la descrizione fornita: \(caption). Rispondi in base al contesto, senza ripetere che non puoi vedere l'immagine."
+                        prompt = "There's an attached photo. Use the provided description: \(caption). Respond based on context, without repeating that you can't see the image."
                         if let url = firstURL(in: caption) {
                             if let preview = await fetchURLPreview(url) {
                                 webContext = "Contenuto web da \(url.absoluteString):\n\n" + preview
                             }
                         } else if allowWebAccess {
-                            // Quando la ricerca web è attiva, cerca sempre sul web
-                            messages.append(.assistant("🔍 Sto cercando informazioni sul web..."))
+                            // When web search is active, always search on web
+                            messages.append(.assistant("🔍 Searching for information on the web..."))
                             if let searchContext = await performWebSearchContext(query: caption) {
-                                // Rimuovi il messaggio di ricerca in corso
-                                if messages.last?.text == "🔍 Sto cercando informazioni sul web..." {
+                                // Remove the searching message
+                                if messages.last?.text == "🔍 Searching for information on the web..." {
                                     messages.removeLast()
                                 }
                                 
-                                // Verifica se è un messaggio di errore
+                                // Check if it's an error message
                                 if searchContext.starts(with: "❌") || searchContext.starts(with: "⚠️") {
-                                    // Mostra l'errore all'utente
+                                    // Show error to user
                                     messages.append(.assistant(searchContext))
                                 } else {
-                                    // Successo
+                                    // Success
                                     webContext = searchContext
-                                    let newsCount = searchContext.components(separatedBy: "=== NOTIZIA").count - 1
+                                    let newsCount = searchContext.components(separatedBy: "=== NEWS").count - 1
                                     if newsCount > 0 {
-                                        messages.append(.assistant("✅ Ho trovato \(newsCount) \(newsCount == 1 ? "fonte" : "fonti") sul web."))
+                                        messages.append(.assistant("✅ Found \(newsCount) \(newsCount == 1 ? "source" : "sources") on the web."))
                                     }
                                 }
                             } else {
-                                // Rimuovi il messaggio e informa l'utente
-                                if messages.last?.text == "🔍 Sto cercando informazioni sul web..." {
+                                // Remove message and inform user
+                                if messages.last?.text == "🔍 Searching for information on the web..." {
                                     messages.removeLast()
                                 }
-                                messages.append(.assistant("⚠️ La ricerca web non ha trovato risultati."))
+                                messages.append(.assistant("⚠️ Web search found no results."))
                             }
                         }
                     }
                 }
 
-                // Mostra a schermo l'analisi locale (se disponibile)
+                // Display local analysis (if available)
                 if let analysisText {
                     messages.append(.assistant(analysisText))
                 }
                 if let webContext {
-                    // Aggiungi il contesto web al prompt
+                    // Add web context to prompt
                     prompt = "\(webContext)\n\n━━━\nUSER: \(prompt)"
                 }
-                // Ridotto context quando c'è web search
+                // Reduced context when there's web search
                 let contextLimit = webContext != nil ? 2 : 6
                 let context = chatContextString(limit: contextLimit)
                 let finalPrompt = context + "\n\n" + prompt
                 let response = try await session.respond(to: finalPrompt, options: GenerationOptions(temperature: 0.7))
                 messages.append(.assistant(response.content))
             } catch {
-                messages.append(.assistant("Si è verificato un errore nell'elaborazione dell'immagine."))
+                messages.append(.assistant("An error occurred while processing the image."))
             }
             isResponding = false
         }
@@ -435,13 +435,13 @@ final class ChatViewModel: ObservableObject {
     }
 
     private func archiveCurrentChatAndReset() async {
-        // Se non ci sono messaggi, basta pulire lo stato corrente
+        // If there are no messages, just clear current state
         guard !messages.isEmpty else {
             messages.removeAll()
             input = ""
             pendingImageData = nil
             selectedPhoto = nil
-            // Reset della sessione AI anche per chat vuota
+            // Reset AI session even for empty chat
             reset()
             return
         }
@@ -450,12 +450,12 @@ final class ChatViewModel: ObservableObject {
         let thread = ChatThread(title: title, messages: messages)
         history.insert(thread, at: 0)
 
-        // Pulisce la chat corrente E resetta la sessione AI
+        // Clears current chat AND resets AI session
         messages.removeAll()
         input = ""
         pendingImageData = nil
         selectedPhoto = nil
-        reset() // Importante: resetta la sessione per liberare il context
+        reset() // Important: resets session to free context
     }
 
     func reset() {
@@ -465,12 +465,12 @@ final class ChatViewModel: ObservableObject {
             session = LanguageModelSession(tools: tools, instructions: systemInstructions)
         } else {
             session = nil
-            availabilityMessage = "Il modello non è disponibile per resettare la conversazione."
+            availabilityMessage = "The model is not available to reset the conversation."
         }
     }
 
     private func generateTitle(for msgs: [ChatMessage]) async -> String {
-        // Heuristica di fallback
+        // Fallback heuristic
         func fallbackTitle() -> String {
             if let first = msgs.first(where: { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty })?.text {
                 let trimmed = first.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -479,36 +479,36 @@ final class ChatViewModel: ObservableObject {
             let formatter = DateFormatter()
             formatter.dateStyle = .short
             formatter.timeStyle = .short
-            return "Nuova chat (" + formatter.string(from: Date()) + ")"
+            return "New chat (" + formatter.string(from: Date()) + ")"
         }
 
-        // Se il modello non è disponibile o è occupato, usa fallback
+        // If model is not available or busy, use fallback
         guard SystemLanguageModel.default.availability == .available, let session = session, !session.isResponding else {
             return fallbackTitle()
         }
 
-        // Costruisci un breve contesto dai messaggi recenti
+        // Build brief context from recent messages
         let recent = msgs.suffix(10)
         let contextLines: [String] = recent.map { m in
-            let role = m.isUser ? "Utente" : "Assistente"
+            let role = m.isUser ? "User" : "Assistant"
             if m.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                return "[\(role)] (messaggio senza testo)"
+                return "[\(role)] (message without text)"
             } else {
                 return "[\(role)] \(m.text)"
             }
         }
         let context = contextLines.joined(separator: "\n")
         let titlePrompt = """
-        Genera un titolo conciso in italiano (max 6 parole) per questa conversazione. Evita virgolette, punti finali e caratteri speciali. Solo il titolo, niente altro.
+        Generate a concise title in English (max 6 words) for this conversation. Avoid quotes, final periods and special characters. Only the title, nothing else.
 
-        Conversazione:
+        Conversation:
         \(context)
         """
 
         do {
             let response = try await session.respond(to: titlePrompt, options: GenerationOptions(temperature: 0.3))
             var candidate = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            // Normalizza il titolo su una sola riga e limita la lunghezza
+            // Normalize title to single line and limit length
             if let newline = candidate.firstIndex(of: "\n") {
                 candidate = String(candidate[..<newline])
             }
@@ -526,40 +526,40 @@ final class ChatViewModel: ObservableObject {
         case .unavailable(let reason):
             switch reason {
             case .deviceNotEligible:
-                return "Il tuo dispositivo non è idoneo per utilizzare questo modello."
+                return "Your device is not eligible to use this model."
             case .appleIntelligenceNotEnabled:
-                return "L'hardware AI non è abilitato sul dispositivo."
+                return "AI hardware is not enabled on the device."
             case .modelNotReady:
-                return "Il modello non è pronto per l'uso."
+                return "The model is not ready for use."
             @unknown default:
-                return "Il modello non è disponibile."
+                return "The model is not available."
             }
         @unknown default:
-            return "Il modello non è disponibile."
+            return "The model is not available."
         }
     }
     
     private func chatContextString(limit: Int = 12) -> String {
-        // Prende gli ultimi N messaggi per fornire contesto al modello
-        // Ridotto il limite default per evitare di superare il context window
-        let effectiveLimit = min(limit, 6) // Massimo 6 messaggi recenti
+        // Takes the last N messages to provide context to the model
+        // Reduced default limit to avoid exceeding context window
+        let effectiveLimit = min(limit, 6) // Maximum 6 recent messages
         let recent = messages.suffix(effectiveLimit)
         let lines: [String] = recent.map { msg in
-            let role = msg.isUser ? "Utente" : "Assistente"
+            let role = msg.isUser ? "User" : "Assistant"
             if msg.imageData != nil {
-                // Non includiamo i bytes dell'immagine, solo un segnaposto e l'eventuale didascalia
+                // Don't include image bytes, just a placeholder and optional caption
                 if msg.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    return "[\(role)] [Immagine allegata]"
+                    return "[\(role)] [Attached image]"
                 } else {
-                    return "[\(role)] [Immagine allegata] \nDidascalia: \(msg.text)"
+                    return "[\(role)] [Attached image] \nCaption: \(msg.text)"
                 }
             } else {
-                // Limita la lunghezza di ogni messaggio per risparmiare token
+                // Limit length of each message to save tokens
                 let truncated = String(msg.text.prefix(300))
                 return "[\(role)] \(truncated)"
             }
         }
-        return "Contesto conversazione (ultimi \(recent.count) messaggi):\n" + lines.joined(separator: "\n\n")
+        return "Conversation context (last \(recent.count) messages):\n" + lines.joined(separator: "\n\n")
     }
 
     // MARK: - Web fetch helpers
@@ -770,17 +770,17 @@ final class ChatViewModel: ObservableObject {
             }
             
             // Build rich context with all retrieved content
-            var lines: [String] = ["🌐 INFORMAZIONI TROVATE SUL WEB PER: \(query)"]
+            var lines: [String] = ["🌐 WEB INFORMATION FOUND FOR: \(query)"]
             lines.append("")
-            lines.append("Hai a disposizione le seguenti notizie dettagliate. Analizzale tutte e crea un riassunto completo:")
+            lines.append("You have the following detailed news available. Analyze them all and create a complete summary:")
             lines.append("")
             lines.append(contentPieces.joined(separator: "\n\n"))
             
-            print("✅ DEBUG: Ricerca completata con successo!")
+            print("✅ DEBUG: Search completed successfully!")
             return lines.joined(separator: "\n")
         } catch {
-            print("❌ DEBUG: Errore durante la ricerca: \(error)")
-            return "❌ ERRORE durante la ricerca: \(error.localizedDescription)"
+            print("❌ DEBUG: Error during search: \(error)")
+            return "❌ ERROR during search: \(error.localizedDescription)"
         }
     }
 

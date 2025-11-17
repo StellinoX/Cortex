@@ -44,7 +44,7 @@ final class ImageAnalysisTool {
 
         // Classification (Core ML custom model if present, otherwise system classifier)
         var classificationResults: [(label: String, confidence: Float)] = []
-        var classificationSource: String = "nessun modello disponibile"
+        var classificationSource: String = "no model available"
 
         // Try Core ML custom model from bundle (.mlmodelc)
         if let modelURL = Bundle.main.urls(forResourcesWithExtension: "mlmodelc", subdirectory: nil)?.first,
@@ -56,7 +56,7 @@ final class ImageAnalysisTool {
                 try clsHandler.perform([clsRequest])
                 if let results = clsRequest.results as? [VNClassificationObservation] {
                     classificationResults = results.prefix(3).map { (label: $0.identifier, confidence: $0.confidence) }
-                    classificationSource = "modello Core ML personalizzato"
+                    classificationSource = "custom Core ML model"
                 }
             } catch {
                 // Will try system classifier below
@@ -71,7 +71,7 @@ final class ImageAnalysisTool {
                 try sysHandler.perform([sysRequest])
                 if let results = sysRequest.results, !results.isEmpty {
                     classificationResults = results.prefix(3).map { (label: $0.identifier, confidence: $0.confidence) }
-                    classificationSource = "modello di sistema"
+                    classificationSource = "system model"
                 }
             } catch {
                 // No classification available
@@ -80,23 +80,23 @@ final class ImageAnalysisTool {
 
         let linesCount = recognizedLines.count
         var parts: [String] = []
-        parts.append("Dimensioni immagine: \(width)x\(height) px")
-        parts.append("Dimensione file: \(sizeString)")
-        parts.append("Linee di testo riconosciute: \(linesCount)")
+        parts.append("Image dimensions: \(width)x\(height) px")
+        parts.append("File size: \(sizeString)")
+        parts.append("Recognized text lines: \(linesCount)")
 
-        parts.append("Classificazione: \(classificationSource)")
+        parts.append("Classification: \(classificationSource)")
         if !classificationResults.isEmpty {
             for (label, conf) in classificationResults {
                 let pct = Int((Double(conf) * 100.0).rounded())
                 parts.append("- \(label) (\(pct)%)")
             }
         } else {
-            parts.append("- nessun risultato")
+            parts.append("- no results")
         }
 
         if !recognizedLines.isEmpty {
             parts.append("")
-            parts.append("Testo (OCR):")
+            parts.append("Text (OCR):")
             parts.append(recognizedLines.joined(separator: "\n"))
         }
 

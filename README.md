@@ -1,4 +1,4 @@
-# 🤖 Challenge - AI Chat Assistant
+# � Cortex - AI Chat Assistant
 
 An advanced iOS app that combines artificial intelligence, web search, image analysis, and visual content generation through Image Playground.
 
@@ -83,13 +83,13 @@ An advanced iOS app that combines artificial intelligence, web search, image ana
 ### Project Structure
 
 ```
-Challenge/
-├── ChallengeApp.swift          # App entry point
+Cortex/
+├── CortexApp.swift              # App entry point
 ├── ContentView.swift            # Main UI and interface management
 ├── ChatViewModel.swift          # Business logic and coordination
 ├── ChatMessage.swift            # Data model for messages
 ├── ImageAnalysisTool.swift      # OCR and object recognition analysis
-└── Assets.xcassets/            # Graphic resources
+└── Assets.xcassets/             # Graphic resources
 ```
 
 ### Architectural Pattern

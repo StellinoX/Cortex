@@ -1,12 +1,30 @@
 //
 //  ContentView.swift
-//  Challenge
+//  Cortex
 //
 //  Created by Alfonso Giuseppe Auriemma on 16/11/25.
 //
 
 import SwiftUI
-import FoundationModels
+                Spacer()
+                
+                Button("Close") {
+                    isPresented = false
+                }
+                .buttonStyle(.borderedProminent)
+                .padding()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Close") {
+                        isPresented = false
+                    }
+                }
+            }
+        }
+    }
+}dels
 import PhotosUI
 import ImagePlayground
 
@@ -21,12 +39,12 @@ struct ContentView: View {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .font(.system(size: 48))
                             .foregroundStyle(.yellow)
-                        Text("Modello non disponibile")
+                        Text("Model Unavailable")
                             .font(.title2).bold()
                         Text(message)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.secondary)
-                        Button("Riprova") { vm.checkAvailability() }
+                        Button("Retry") { vm.checkAvailability() }
                             .buttonStyle(.borderedProminent)
                     }
                     .padding()
@@ -61,7 +79,7 @@ private struct ChatView: View {
                     Image(systemName: "clock.arrow.circlepath")
                         .font(.system(size: 18, weight: .semibold))
                 }
-                .accessibilityLabel("Cronologia chat")
+                .accessibilityLabel("Chat history")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -72,7 +90,7 @@ private struct ChatView: View {
                     Image(systemName: "square.and.pencil")
                         .font(.system(size: 18, weight: .semibold))
                 }
-                .accessibilityLabel("Nuova chat")
+                .accessibilityLabel("New chat")
             }
         }
         .sheet(isPresented: $showingHistory) {
@@ -104,10 +122,10 @@ private struct UnavailableImagePlaygroundView: View {
                     .font(.system(size: 64))
                     .foregroundStyle(.orange)
                 
-                Text("Image Playground non disponibile")
+                Text("Image Playground Unavailable")
                     .font(.title2.bold())
                 
-                Text("Image Playground richiede:\n• iOS 18.2 o superiore\n• Dispositivo compatibile con Apple Intelligence")
+                Text("Image Playground requires:\n• iOS 18.2 or later\n• Apple Intelligence compatible device")
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -148,7 +166,7 @@ private struct MessagesList: View {
                         HStack(alignment: .center, spacing: 12) {
                             ProgressView()
                                 .tint(.blue)
-                            Text("Sto pensando…")
+                            Text("Thinking…")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -291,7 +309,7 @@ private struct InputBar: View {
             // TextField con stile custom
             HStack(spacing: 8) {
                 TextField(text: $vm.input, axis: .vertical) {
-                    Text("Scrivi un messaggio...")
+                    Text("Write a message...")
                         .foregroundStyle(.secondary)
                 }
                 .font(.body)
@@ -416,9 +434,9 @@ private struct HistoryView: View {
             Group {
                 if vm.history.isEmpty {
                     ContentUnavailableView(
-                        "Nessuna chat salvata",
+                        "No Saved Chats",
                         systemImage: "clock.arrow.circlepath",
-                        description: Text("Quando crei una nuova chat, quella corrente verrà salvata qui con un titolo."))
+                        description: Text("When you create a new chat, the current one will be saved here with a title."))
                 } else {
                     List {
                         ForEach(vm.history) { thread in
@@ -473,7 +491,7 @@ private struct HistoryView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("Cronologia")
+            .navigationTitle("History")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
